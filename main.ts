@@ -8,17 +8,23 @@
 
 import { mkdirSync, writeFileSync } from "node:fs";
 
-// The roast. One joke, one turn: the fridge as a nightclub bouncer whose
-// VIP list is the leftovers — and the owner is not on it. The midnight
-// lockout itself is the target, and the line reads like something said
-// out loud at the fridge door at 00:05.
-const ROAST =
-  "My smart fridge locks at midnight like a nightclub bouncer — the VIP list is just my leftovers, and somehow I'm not on it.";
+// The roast, built from its two beats so the turn stays visible in the
+// code: the setup casts the fridge as a nightclub bouncer, the punchline
+// is the VIP list. One joke, one turn; the midnight lockout itself is the
+// target, and the line reads like something said out loud at the fridge
+// door at 00:05.
+const SETUP = "My smart fridge locks at midnight like a nightclub bouncer";
+const PUNCHLINE =
+  "the VIP list is just my leftovers, and somehow I'm not on it.";
+const ROAST = `${SETUP} — ${PUNCHLINE}`;
+
+// Gate: /output/entry.txt must be UTF-8 text of 1 to 200 characters.
+const MAX_CHARS = 200;
 
 function main(): void {
   const line = ROAST.trim();
 
-  if (line.length === 0 || line.length > 200) {
+  if (line.length === 0 || line.length > MAX_CHARS) {
     throw new Error(`roast must be 1-200 characters, got ${line.length}`);
   }
   if (line.includes("\n") || line.includes("\r")) {
